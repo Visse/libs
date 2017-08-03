@@ -805,7 +805,7 @@ static STRPOOL_U32 strpool_internal_calculate_hash( char const* string, int leng
         for( int i = 0; i < length; ++i )
             {
             char c = string[ i ];
-            c = ( c <= 'z' && c >= 'a' ) ? c - ( 'a' - 'A' ) : c;
+            c = ( c >= 'A' && c <= 'Z' ) ? c - ( 'a' - 'A' ) : c;
             hash = ( ( hash << 5U ) + hash) ^ c;
             }
         }
