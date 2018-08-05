@@ -21,6 +21,7 @@ typedef struct hashtable_t hashtable_t;
 
 void hashtable_init( hashtable_t* table, int item_size, int initial_capacity, void* memctx );
 void hashtable_term( hashtable_t* table );
+void hashtable_clear( hashtable_t* table );
 
 void hashtable_insert( hashtable_t* table, HASHTABLE_U64 key, void const* item );
 void hashtable_remove( hashtable_t* table, HASHTABLE_U64 key );
@@ -385,6 +386,13 @@ void hashtable_init( hashtable_t* table, int item_size, int initial_capacity, vo
     HASHTABLE_ASSERT( table->items_key );
     table->items_slot = (int*)( table->items_key + table->item_capacity );
     table->items_data = (void*)( table->items_slot + table->item_capacity );
+    }
+
+void hashtable_clear( hashtable_t* table )
+    {
+    int slots_size = (int)( table->slot_capacity * sizeof( *table->slots ) );
+    HASHTABLE_MEMSET( table->slots, 0, slots_size );
+    table->count = 0;
     }
 
 
